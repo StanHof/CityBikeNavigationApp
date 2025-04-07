@@ -15,6 +15,24 @@ function loadStationsFromJSON(stringJSON) {
             });
         });
 }
+
+async function geocodeAddress(address) {
+    try {
+        const response = await fetch(`http://localhost:3001/api/geocode?address=${encodeURIComponent(address)}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log('Geocoding results:', data.results);
+            return data.results;
+        } else {
+            throw new Error(data.error || 'Geocoding failed');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
 let map = L.map('map', {
     maxZoom: 20,
     minZoom: 6,
