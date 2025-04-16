@@ -4,104 +4,43 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Places API Text Search Endpoint
-app.get('/api/places/search', async (req, res) => {
+// Your Mapbox API access token (store in .env file)
+const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX_ACCESS_TOKEN;
+
+// Forward Geocoding API endpoint (search by place name)
+app.get('/api/search', async (req, res) => {
     try {
-        const { query, radius = 5000, location, maxResults = 5 } = req.query;
+        const { query, proximity, limit = 10 } = req.query;
 
         if (!query) {
-            return res.status(400).json({ error: 'Search query parameter is required' });
+            return res.status(400).json({ error: 'Query parameter is required' });
         }
-
-        const params = {
-            query: query,
-            key: process.env.GOOGLE_API_KEY,
-            radius: radius
-        };
-
-        // Add location bias if provided (format: "lat,lng")
-        if (location) {
-            params.location = location;
-        }
-
+        console.log(proximity);
         const response = await axios.get(
-            'https://maps.googleapis.com/maps/api/place/textsearch/json',
-            { params }
-        );
-
-        if (response.data.status !== 'OK') {
-            return res.status(400).json({
-                error: 'Places search failed',
-                status: response.data.status,
-                message: response.data.error_message || 'No additional error details'
-            });
-        }
-
-        const formattedResults = response.data.results.map(place => ({
-            name: place.name,
-            address: place.formatted_address,
-            location: place.geometry?.location,
-            place_id: place.place_id,
-            types: place.types,
-            rating: place.rating,
-
-        }));
-
-        res.json({
-            count: formattedResults.length,
-            results: formattedResults
-        });
-
-    } catch (error) {
-        console.error('Places search error:', error);
-        res.status(500).json({
-            error: 'Internal server error',
-            details: error.message
-        });
-    }
-});
-
-// Place Details Endpoint (optional but recommended)
-app.get('/api/places/details', async (req, res) => {
-    try {
-        const { place_id } = req.query;
-
-        if (!place_id) {
-            return res.status(400).json({ error: 'Place ID parameter is required' });
-        }
-
-        const response = await axios.get(
-            'https://maps.googleapis.com/maps/api/place/details/json',
+            `https://api.mapbox.com/search/searchbox/v1/suggest?q=${query}`,
             {
                 params: {
-                    place_id: place_id,
-                    key: process.env.GOOGLE_API_KEY,
-                    fields: 'name,formatted_address,geometry,photo,type,rating,user_ratings_total,website,opening_hours'
+                    access_token: MAPBOX_ACCESS_TOKEN,
+                    proximity: proximity, // "longitude,latitude" format
+                    limit: limit,
+                    session_token: '18ec1019-4371-4321-a0e0-8445e611047d',
+                    types: "address,poi"
                 }
             }
         );
 
-        if (response.data.status !== 'OK') {
-            return res.status(400).json({
-                error: 'Place details fetch failed',
-                status: response.data.status
-            });
-        }
-
-        res.json(response.data.result);
-
+        res.json(response.data);
     } catch (error) {
-        console.error('Place details error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Mapbox API error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch location data' });
     }
 });
-
-app.listen(port, () => {
-    console.log(`Places API service running on port ${port}`);
-});
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+})

@@ -8,34 +8,105 @@ html, body{
     padding: 0;
 }
 .inputDivBG {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 20px;
     left: 20px;
     z-index: 1000;
     background: #faf0e6;
-    padding: 15px;
-    border-radius: 5px;
+
+    border-radius: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    max-width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 800px;
     border: solid 5px olive;
 
 }
-.fromToInput {
+.fromToInputTop {
+    position: relative;
+    left: 5px;
     width: 95%;
-    height: 40px;
+    min-height: 50px;
     border: 0;
     padding: 5px;
     border-bottom: 2px solid #d9b99b;
     background-color: #faf0e6;
-
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
-.fromToInput:focus {
+.fromToInputBottom {
+    position: relative;
+    left: 5px;
     width: 95%;
-    height: 40px;
+    min-height: 50px;
+    border: 0;
+    padding: 5px;
+    border-bottom: 2px solid #d9b99b;
+    background-color: #faf0e6;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.fromToInputTop:focus {
+    width: 95%;
     border: 0;
     padding: 5px;
     border-bottom: 2px solid #d9b99b;
     background-color: #d9b99b;
     outline: none;
+}
+.fromToInputBottom:focus {
+    width: 95%;
+
+    border: 0;
+    padding: 5px;
+    border-bottom: 2px solid #d9b99b;
+    background-color: #d9b99b;
+    outline: none;
+}
+
+
+.list-item {
+    padding: 10px;
+    border: 1px solid black;
+}
+.suggestions-list {
+    max-height: 100%;
+    overflow: scroll;
+    padding: 10px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    border-bottom: 2px solid #d9b99b;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+
+}
+.suggestion-item:first-child {
+
+}
+
+.suggestionListParent {
+    flex: 1;
+    min-height: 0;
+    overflow-y: hidden;
+}
+
+.fromToBG{
+    padding: 10px;
+    background-color: olive;
+    height: 20%;
+
+
+}
+
+.Logo {
+    min-width: 100%;
+
+    min-height: 20%;
+    text-align: center;
+    font: bold 100%/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
