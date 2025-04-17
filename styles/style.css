@@ -11,23 +11,23 @@ html, body{
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 2%;
+    left: 2%;
     z-index: 1000;
     background: #faf0e6;
 
     border-radius: 20px;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    width: 400px;
-    height: 800px;
+    width: 22%;
+    height: 80%;
     border: solid 5px olive;
 
 }
 .fromToInputTop {
     position: relative;
-    left: 5px;
+    left: 1%;
     width: 95%;
-    min-height: 50px;
+    height: 25%;
     border: 0;
     padding: 5px;
     border-bottom: 2px solid #d9b99b;
@@ -37,9 +37,9 @@ html, body{
 }
 .fromToInputBottom {
     position: relative;
-    left: 5px;
+    left: 1%;
     width: 95%;
-    min-height: 50px;
+    height: 25%;
     border: 0;
     padding: 5px;
     border-bottom: 2px solid #d9b99b;
@@ -82,7 +82,7 @@ html, body{
 }
 
 .suggestion-item:last-child {
-    border-bottom: none;
+
 
 }
 .suggestion-item:first-child {
