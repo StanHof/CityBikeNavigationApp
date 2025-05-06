@@ -5,12 +5,16 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const rateLimit = require ('express-rate-limit');
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100
+})
 
-// Middleware
 app.use(cors());
 app.use(express.json());
+app.use('/api/', limiter);
 
-// Your Mapbox API access token (store in .env file)
 const MAPBOX_ACCESS_TOKEN = process.env.MAPBOX_ACCESS_TOKEN;
 
 // Forward Geocoding API endpoint (search by place name)
