@@ -5,7 +5,7 @@ export class cityContext {
     constructor(cityName , coordinates, bbox, nextbikeId){
         /**
          * @param {string} cityName - name
-         * @param {[number , number]} - coordinates - [latitude , longitude]
+         * @param {[number , number]} - coordinates - [longitude , latitude]
          * @param {[[number , number],[number, number]]} - bbox [[min lat , min lng] , [max lat, max lat]]
          * */
         this._cityName = cityName;
@@ -22,10 +22,10 @@ export class cityContext {
     }
 
     get latitude(){
-        return this._coordinates[0];
+        return this._coordinates[1];
     }
     get longitude(){
-        return this._coordinates[1];
+        return this._coordinates[0];
     }
     get boundingBox(){
         return this._bbox;
@@ -35,5 +35,8 @@ export class cityContext {
     }
     get name(){
         return this._cityName;
+    }
+    get nextBikeId(){
+        return this._nextbikeId;
     }
 }

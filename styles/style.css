@@ -105,3 +105,18 @@ html, body{
     text-align: center;
     font: bold 100%/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+.marker {
+    transform: translate(-50% , -100%);
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+.marker.bike{
+    background-image: url('../styles/BikeMarker.png');
+}
+.marker.station{
+    background-image: url('../styles/StationMarker.png');
+}
