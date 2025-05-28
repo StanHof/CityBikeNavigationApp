@@ -96,10 +96,10 @@ export class SearchListManager {
             suggestionItem.addEventListener('click', () => {
                             this.currentFocus.value = suggestion.name;
                             if(this.currentFocus === this.fromElement){
-                                this.updateChosenFrom(suggestion);
+                                this.updateChosen(suggestion , "from");
                             }
                             if(this.currentFocus === this.toElement){
-                                this.updateChosenTo(suggestion);
+                                this.updateChosen(suggestion , "to");
                             }
                             //@todo more on click suggestion logic that will come
 
@@ -124,13 +124,13 @@ export class SearchListManager {
 
     }
     }
-    updateChosenFrom(suggestion){
-        this.chosenFrom = this.retrivePoint(suggestion.id);
+    async updateChosen(suggestion , id){
+        this.mapManager.removeMarker(id)
+        this.chosenFrom = await this.retrivePoint(suggestion.id);
+        this.mapManager.addMarker(this.chosenFrom.features[0] , id)
     }
 
-    updateChosenTo(suggestion){
-        this.chosenTo = this.retrivePoint(suggestion.id);
-    }
+
 
     clearSuggestions(){
         this.listContainer.innerHTML = '';

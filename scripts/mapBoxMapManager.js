@@ -7,7 +7,7 @@ export class MapBoxMapManager {
         this._cityBikeGEOJSONarray = null;
         this._intializeBikeData()
         this._bikeMarkers = new Map();
-
+        this._markers = new Map();
 
     }
     async _intializeBikeData() {
@@ -44,7 +44,20 @@ export class MapBoxMapManager {
         })
 
     }
-
-
+    addMarker(geoJSON , markerid){
+        const el = document.createElement("div");
+        const popup = new mapboxgl.Popup({offset: 25})
+        el.className = "marker"
+        el.classList.add(markerid);
+        const marker = new mapboxgl.Marker(el , {anchor: 'bottom'}).setLngLat(geoJSON.geometry.coordinates)
+        marker.addTo(this._map);
+        this._markers.set(markerid, marker)
+    }
+    removeMarker(markerid){
+        if(this._markers.has(markerid)) {
+            this._markers.get(markerid).remove();
+            this._markers.delete(markerid);
+        }
+    }
 
 }

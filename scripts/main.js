@@ -3,7 +3,7 @@ import {SearchListManager} from './searchListManager.js'
 import {cityContext} from "./cityContext.js";
 import {MapBoxMapManager} from "./mapBoxMapManager.js";
 
-mapboxgl.accessToken = ""
+mapboxgl.accessToken = "pk.eyJ1Ijoic3RhaHUiLCJhIjoiY205YmRqY21oMGVodjJrc2pqOWN1M3pwbiJ9.xmIz28dJw9jhXGEMS27Nug"
 
 const fromElement = document.getElementById('fromInput');
 const toElement = document.getElementById('toInput');

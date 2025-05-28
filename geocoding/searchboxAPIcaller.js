@@ -4,7 +4,7 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const rateLimit = require ('express-rate-limit');
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,

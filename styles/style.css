@@ -120,3 +120,12 @@ html, body{
 .marker.station{
     background-image: url('../styles/StationMarker.png');
 }
+.marker.destination{
+    background-image: url('../styles/DestinationMarker.png');
+}
+.marker.from{
+    background-image: url('../styles/FromMarker.png');
+}
+.marker.to{
+    background-image: url('../styles/ToMarker.png');
+}
