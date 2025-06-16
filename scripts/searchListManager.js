@@ -14,6 +14,7 @@ export class SearchListManager {
             this.chosenFrom = null;
             this.chosenTo = null;
             this._setupInput();
+            this.findRouteButton = null;
     }
 
     _setupInput() {
@@ -41,9 +42,11 @@ export class SearchListManager {
             }, 300);
         }
         this.toElement.addEventListener('input', handleInput);
+        this.toElement.addEventListener('click', handleInput);
         this.toElement.addEventListener('focus', () => this.currentFocus = this.toElement);
         this.fromElement.addEventListener('input', handleInput);
-        this.fromElement.addEventListener('focus', () => this.currentFocus = this.fromElement);
+        this.fromElement.addEventListener('click', handleInput);
+        this.fromElement.addEventListener('focus', () => this.currentFocus = this.fromElement );
     }
 
     async searchAddress(query , location , limit ) {
@@ -96,12 +99,12 @@ export class SearchListManager {
             suggestionItem.addEventListener('click', () => {
                             this.currentFocus.value = suggestion.name;
                             if(this.currentFocus === this.fromElement){
-                                this.updateChosen(suggestion , "from");
+                                this.updateChosenFrom(suggestion);
                             }
                             if(this.currentFocus === this.toElement){
-                                this.updateChosen(suggestion , "to");
+                                this.updateChosenTo(suggestion);
                             }
-                            //@todo more on click suggestion logic that will come
+
 
             });
             this.listContainer.append(suggestionItem);
@@ -126,15 +129,52 @@ export class SearchListManager {
     }
     async updateChosen(suggestion , id){
         this.mapManager.removeMarker(id)
-        this.chosenFrom = await this.retrivePoint(suggestion.id);
         this.mapManager.addMarker(this.chosenFrom.features[0] , id)
     }
 
+    async updateChosenFrom(suggestion){
+        this.chosenFrom = await this.retrivePoint(suggestion.id);
 
+        this.mapManager.removeMarker("from");
+        this.mapManager.addMarker(this.chosenFrom.features[0] , "from");
+        if(this.currentFocus === this.fromElement && this.chosenTo === null){
+            this.toElement.focus();
+            this.currentFocus = this.toElement;
+        }
+        this.clearSuggestions();
+        this.addFindRouteButton();
+    }
+    async updateChosenTo(suggestion){
+        this.chosenTo = await this.retrivePoint(suggestion.id);
+
+        this.mapManager.removeMarker("to");
+        this.mapManager.addMarker(this.chosenTo.features[0] , "to");
+        if(this.currentFocus === this.toElement && this.chosenFrom === null){
+            this.fromElement.focus();
+            this.currentFocus = this.fromElement;
+        }
+        this.clearSuggestions();
+        this.addFindRouteButton();
+    }
+    addFindRouteButton(){
+
+        if(this.chosenFrom && this.chosenTo && this.chosenFrom !== this.chosenTo && !this.findRouteButton ){
+            this.clearSuggestions();
+            this.findRouteButton = document.createElement("button");
+            this.findRouteButton.id = "findRouteButton";
+            this.findRouteButton.textContent = "Find Route";
+            this.findRouteButton.className = "btn";
+            this.findRouteButton.classList.add("slide-in")
+            document.getElementById("listParent").appendChild(this.findRouteButton);
+        }
+    }
 
     clearSuggestions(){
         this.listContainer.innerHTML = '';
-
+        if(this.findRouteButton){
+            this.findRouteButton.remove();
+            this.findRouteButton = null;
+        }
     }
     async retrivePoint(id){
         let url = `http://localhost:3001/api/ret?id=${encodeURIComponent(id)}`;
