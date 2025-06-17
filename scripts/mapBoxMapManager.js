@@ -88,13 +88,8 @@ export class MapBoxMapManager {
                         16, 0.4
                     ],
                     'text-field': ['get', 'bikesAvailable'],
-                    'text-size': [
-                        'case',
-                        ['==', ['get', 'bikesAvailable'], 0], 0,
-
-                        20
-                    ],
-                    'text-offset': [0.9, -0.15],
+                    'text-size': 20,
+                    'text-offset': [0.98, -0.13],
                     'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
                     'text-allow-overlap': true,
                     'visibility': 'none' // Initially hidden

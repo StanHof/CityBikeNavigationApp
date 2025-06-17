@@ -31,8 +31,6 @@ export function convertToGeoJSON(placesArray) {
                     bikesAvailable: bikes_available_to_rent,
                     isBike: bike,
                     imageId: bike ? 'bike-image' : 'station-image'
-
-
                 }
             }
     })}

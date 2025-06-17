@@ -45,25 +45,27 @@ html, body{
     box-shadow: 5px 5px 0 #000;
 }
 .fromToInput:focus {
-
-    background: lightgray;
-    box-shadow: 12px 12px 0 #000;
+    width: 86%;
+    background: #ac74c1;
+    box-shadow: 12px 12px 0 #000000;
 }
 
 .suggestion-item {
+    flex-basis: 0;
+    border-radius: 15px;
     padding: 10px;
-    border-bottom: 2px solid black;
-}
+    border-bottom: 0;
+    border-top: 0;
+    transition: all 0.2s linear;
 
 
-.suggestionListParent {
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-    flex: 1;
-    min-height: 0;
-    overflow-y: scroll;
-    width: 95%;
 }
+.suggestion-item:hover {
+    background: #ac74c1;
+    box-shadow: 12px 12px 0 #000;
+
+}
+
 
 .listBackground{
     display: flex;
@@ -71,17 +73,16 @@ html, body{
     border-top: 5px solid #93023f;
 
     margin-top: 5%;
-
+    flex: 1;
     font-family: Montserrat, sans-serif;
     font-size: 14px;
     font-weight: 900;
-    width: 100%;
-    height: 80%;
     background: whitesmoke;
     padding: 5px 12px;
     color: #000000;
-
-    overflow: scroll;
+    align-self: stretch;
+    overflow-y: scroll;
+    overflow-x: visible;
 }
 
 .Logo {
@@ -173,23 +174,13 @@ html, body{
     overflow: hidden;
     z-index: 1;
     font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.btn::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #93023f;
-    transform: translateY(100%);
-    transition: all .3s;
-    z-index: -1;
-}
 
-.btn:hover::before {
-    transform: translateX(0);
+.btn:hover {
+    width: 91%;
+    box-shadow: 12px 12px 0 #000;
 }
 .station-popup {
     font-family: Montserrat, sans-serif;
