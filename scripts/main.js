@@ -45,4 +45,5 @@ let piekna = {
         ],
         "type": "Point"
     }}
-let path = pathmanager.fetchPath(piekna , sepa).then((pathJSON) => mapVisualManager.displayPath(pathJSON));
+
+let path = pathmanager.fetchPath(piekna , sepa).then((pathJSON) => mapVisualManager.displayPath(pathJSON['segments']['bike_path']));
